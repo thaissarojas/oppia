@@ -78,11 +78,11 @@ export class QuestionsListService {
     );
   }
 
-  getQuestionSummariesAsync(
+  async getQuestionSummariesAsync(
     skillId: string,
     fetchMore: boolean,
     resetHistory: boolean
-  ): void {
+  ): Promise<any> {
     if (resetHistory) {
       this._questionSummariesForOneSkill = [];
       this._nextOffsetForQuestions = 0;
@@ -101,20 +101,23 @@ export class QuestionsListService {
       this._moreQuestionsAvailable === true &&
       fetchMore
     ) {
-      this.questionBackendApiService
-        .fetchQuestionSummariesAsync(skillId, this._nextOffsetForQuestions)
-        .then(response => {
-          let questionSummaries = response.questionSummaries.map(summary => {
+      const response =
+        await this.questionBackendApiService.fetchQuestionSummariesAsync(
+          skillId,
+          this._nextOffsetForQuestions
+        );
+      if (response) {
+        let questionSummaries = await response.questionSummaries.map(
+          summary => {
             return QuestionSummaryForOneSkill.createFromBackendDict(summary);
-          });
+          }
+        );
 
-          this._changeNextQuestionsOffset(resetHistory);
-          this._setMoreQuestionsAvailable(response.more);
-          this._setQuestionSummariesForOneSkill(
-            questionSummaries,
-            resetHistory
-          );
-        });
+        this._changeNextQuestionsOffset(resetHistory);
+        this._setMoreQuestionsAvailable(response.more);
+        this._setQuestionSummariesForOneSkill(questionSummaries, resetHistory);
+      }
+      return response;
     }
   }
 
