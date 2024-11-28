@@ -75,6 +75,10 @@ export class SelectSkillModalComponent extends ConfirmOrCancelModal {
   }
 
   isSaveButtonEnabled(): boolean {
+    if (this.selectedSkillId === undefined) {
+      this.errorMessage = 'Please select a Skill';
+      return false;
+    }
     for (let idx in this.associatedSkillSummaries) {
       if (this.associatedSkillSummaries[idx].getId() === this.selectedSkillId) {
         return false;

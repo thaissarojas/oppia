@@ -53,6 +53,7 @@ export class SkillPrerequisiteSkillsEditorComponent implements OnInit {
   allAvailableSkills: SkillSummary[] = [];
   directiveSubscriptions = new Subscription();
   windowIsNarrow!: boolean;
+  disableDoneButton: boolean = true;
 
   constructor(
     private skillUpdateService: SkillUpdateService,
@@ -98,6 +99,9 @@ export class SkillPrerequisiteSkillsEditorComponent implements OnInit {
       this.untriagedSkillSummaries;
 
     const whenResolved = (summary: SkillSummary): void => {
+      if (summary == undefined) {
+        return;
+      }
       let skillId = summary.id;
       if (skillId === this.skill.getId()) {
         this.alertsService.addInfoMessage(

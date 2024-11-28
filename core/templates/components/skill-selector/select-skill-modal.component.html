@@ -1,31 +1,37 @@
 <div class="modal-header select-skill-modal-header">
-  <h3>
-    Select Skill
-  </h3>
+  <h3>Select Skill</h3>
   <i class="fa fa-times modal-close-button" (click)="cancel()"></i>
 </div>
 <div class="modal-body">
-  <oppia-skill-selector [sortedSkillSummaries]="skillSummaries"
-                        [selectedSkillId]="selectedSkillId"
-                        [countOfSkillsToPrioritize]="skillsInSameTopicCount"
-                        [categorizedSkills]="categorizedSkills"
-                        [untriagedSkillSummaries]="untriagedSkillSummaries"
-                        [allowSkillsFromOtherTopics]="allowSkillsFromOtherTopics"
-                        (selectedSkillIdChange)="setSelectedSkillId($event)">
+  <oppia-skill-selector
+    [sortedSkillSummaries]="skillSummaries"
+    [selectedSkillId]="selectedSkillId"
+    [countOfSkillsToPrioritize]="skillsInSameTopicCount"
+    [categorizedSkills]="categorizedSkills"
+    [untriagedSkillSummaries]="untriagedSkillSummaries"
+    [allowSkillsFromOtherTopics]="allowSkillsFromOtherTopics"
+    (selectedSkillIdChange)="setSelectedSkillId($event)"
+  >
   </oppia-skill-selector>
 </div>
 <div class="modal-footer">
   <div>
-    <span [matTooltip]="errorMessage"
-          matTooltipClass="oppia-mat-tooltip-list"
-          [matTooltipDisabled]="isSaveButtonEnabled()"
-          class="w-100">
-      <button class="btn btn-success e2e-test-confirm-skill-selection-button"
-              (click)="confirm()"
-              [disabled]="!isSaveButtonEnabled()">
+    <span
+      [matTooltip]="errorMessage"
+      matTooltipClass="oppia-mat-tooltip-list"
+      [matTooltipDisabled]="isSaveButtonEnabled()"
+      class="w-100"
+    >
+      <button
+        class="btn btn-success e2e-test-confirm-skill-selection-button"
+        (click)="confirm()"
+        [disabled]="!isSaveButtonEnabled()"
+      >
         Done
-        <i class="fas fa-exclamation-triangle story-save-draft-warning"
-           *ngIf="!isSaveButtonEnabled()">
+        <i
+          class="fas fa-exclamation-triangle story-save-draft-warning"
+          *ngIf="!isSaveButtonEnabled()"
+        >
         </i>
       </button>
     </span>
